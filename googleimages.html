@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>San Jose Image Aggregator</title>
+<script type="text/javascript" src="https://www.google.com/jsapi"></script>
+<script type="text/javascript">
+
+var s;
+var page = 1;
+var n;
+
+google.load('search', '1', {'nocss' : true});
+google.load('jquery', '1.4.2'); // optional
+
+google.setOnLoadCallback(function() {
+    // T&C's state you should display branding, create a <div id="branding"></div>
+    google.search.Search.getBranding(document.getElementById('branding'));
+    s = new google.search.ImageSearch();
+    s.setResultSetSize(google.search.Search.LARGE_RESULTSET);
+    s.setSearchCompleteCallback(this, searchComplete, null);
+    s.setNoHtmlGeneration();
+
+    n = new google.search.NewsSearch();
+    n.setResultSetSize(google.search.Search.LARGE_RESULTSET);
+    n.setSearchCompleteCallback(this, searchCompleten, null);
+    n.setNoHtmlGeneration();
+
+
+    $( ".red" ).click(function(e) {
+        e.preventDefault();
+        s.execute("San Jose");
+    });
+});
+
+function searchCompleten() {
+    if(n.results && n.results.length > 0) {
+        var results = n.results;
+
+         
+        for(var i = 0; i < results.length; i++) {
+            var result = results[i];
+            // document.write(result.unescapedUrl);
+            // console.log(result);
+
+            //HERE IS THE MAGIC!! 
+
+            imageurl = n.results[i].originalContextUrl;
+
+            var list = document.createElement("li");
+            var mediabody = document.createElement("div");
+            var p = document.createElement('p');
+            var img = document.createElement('img');
+            var a = document.createElement('a');
+            var span = document.createElement('span');  
+            var imagecontainer = document.createElement("div");
+            var mediaheading = document.createElement("h4");
+   
+            imagecontainer.className += "image-container pull-left";
+            img.className += "front-images";
+            mediabody.className += "media-body";
+            mediaheading.className += "media-heading";
+
+
+            a.href= imageurl;
+            a.target="_blank";
+            a.innerHTML = result.title + "<br>" + "<br>";
+            span.innerHTML = "<br>" + result.content + "<br>" + "<br>";
+            img.src = result.unescapedUrl;
+            img.innerHTML = "<br>";
+            p.innerHTML = "Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi. Nam liber tempor cum soluta nobis eleifend option congue nihil imperdiet doming id quod mazim placerat facer possim assum. Typi non habent claritatem insitam; est usus legentis in iis qui facit eorum claritatem. Investigationes demonstraverunt lectores legere me lius quod ii legunt saepius. Claritas est etiam processus dynamicus, qui sequitur mutationem consuetudium lectorum. Mirum est notare quam littera gothica, quam nunc putamus parum claram, anteposuerit litterarum formas humanitatis per seacula quarta decima et quinta decima. Eodem modo typi, qui nunc nobis videntur parum clari, fiant sollemnes in futurum.";
+
+
+            console.log(result);
+            console.log(i);
+
+            // Append search results to the HTML nodes
+            // my_div = document.getElementById("myList");
+            // document.body.insertBefore(newDiv, my_div);
+
+            $("#myList").append(list);
+            list.appendChild(imagecontainer);
+            imagecontainer.appendChild(img);
+            list.appendChild(mediabody);
+            mediabody.appendChild(mediaheading);
+            mediabody.appendChild(p);
+            mediaheading.appendChild(a);
+
+
+            // newDiv.appendChild(p);
+            // p.appendChild(a);
+            // p.appendChild(img);
+            // p.appendChild(span);
+            // document.body.appendChild(p);
+        }
+
+        if(page < 8) {
+            s.gotoPage(page);
+            page++;
+        }
+    }
+}
+
+
+function searchComplete() {
+    if(s.results && s.results.length > 0) {
+        var results = s.results;
+
+         
+        for(var i = 0; i < results.length; i++) {
+            var result = results[i];
+            // document.write(result.unescapedUrl);
+            // console.log(result);
+
+            //HERE IS THE MAGIC!! 
+
+            imageurl = s.results[i].originalContextUrl;
+
+            var list = document.createElement("li");
+            var mediabody = document.createElement("div");
+            var p = document.createElement('p');
+            var img = document.createElement('img');
+            var a = document.createElement('a');
+            var span = document.createElement('span');  
+            var imagecontainer = document.createElement("div");
+            var mediaheading = document.createElement("h4");
+   
+            imagecontainer.className += "image-container pull-left";
+            img.className += "front-images";
+            mediabody.className += "media-body";
+            mediaheading.className += "media-heading";
+
+            a.href= imageurl;
+            a.target="_blank";
+            a.innerHTML = result.title + "<br>" + "<br>";
+            span.innerHTML = "<br>" + result.content + "<br>" + "<br>";
+            img.src = result.unescapedUrl;
+            img.innerHTML = "<br>";
+            p.innerHTML = "Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi. Nam liber tempor cum soluta nobis eleifend option congue nihil imperdiet doming id quod mazim placerat facer possim assum. Typi non habent claritatem insitam; est usus legentis in iis qui facit eorum claritatem. Investigationes demonstraverunt lectores legere me lius quod ii legunt saepius. Claritas est etiam processus dynamicus, qui sequitur mutationem consuetudium lectorum. Mirum est notare quam littera gothica, quam nunc putamus parum claram, anteposuerit litterarum formas humanitatis per seacula quarta decima et quinta decima. Eodem modo typi, qui nunc nobis videntur parum clari, fiant sollemnes in futurum.";
+
+
+            console.log(result);
+            console.log(i);
+
+            // Append search results to the HTML nodes
+            // my_div = document.getElementById("myList");
+            // document.body.insertBefore(newDiv, my_div);
+
+            $("#myList").append(list);
+            list.appendChild(imagecontainer);
+            imagecontainer.appendChild(img);
+            list.appendChild(mediabody);
+            mediabody.appendChild(mediaheading);
+            mediabody.appendChild(p);
+            mediaheading.appendChild(a);
+
+
+            // newDiv.appendChild(p);
+            // p.appendChild(a);
+            // p.appendChild(img);
+            // p.appendChild(span);
+            // document.body.appendChild(p);
+        }
+
+        if(page < 8) {
+            s.gotoPage(page);
+            page++;
+        }
+    }
+}
+
+
+</script>
+
+<style>
+    .front-images {
+        width: 300px;
+    }
+
+</style>
+
+</head>
+
+
+<body style="font-family: Arial;border: 0 none;">
+
+    <div class="red" style="background: red; width: 200px; height: 200px;"></div>
+
+    <div id="myList"></div>
+
+
+    <div class="mydiv"  style="float: left;"></div><br />
+
+
+</body>
+</html>
