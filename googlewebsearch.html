@@ -1,8 +1,14 @@
+<!-- Created by Ron Chistik
+ Example: Google News Feed API
+ Version 1.0
+-->
+
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>San Jose News Aggregator</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>Google Web Search API</title>
+
 <script type="text/javascript" src="https://www.google.com/jsapi"></script>
 <script type="text/javascript">
 
@@ -23,52 +29,32 @@ google.setOnLoadCallback(function() {
 });
 
 function searchComplete() {
-
-
-
+    
     if(s.results && s.results.length > 0) {
         var results = s.results;
          
         for(var i = 0; i < results.length; i++) {
             var result = results[i];
-            // document.write(result.unescapedUrl);
-            // console.log(result);
 
-            //APPENDING
-
+            //Creating elements
             newsurl = s.results[i].unescapedUrl;
             var p = document.createElement('p');
             var a = document.createElement('a');
             var span = document.createElement('span');
             var img = document.createElement('img');
 
-
+            //Defining elments
             a.href= newsurl;
             a.target="_blank";
             a.innerHTML = s.results[i].title + "<br>" + "<br>";
             span.innerHTML = s.results[i].content + "<br>" + "<br>";
-
-
             img.innerHTML = "<br> "+ "<br>";
 
-            console.log(result);
-            console.log(i);
-
-
-
-            // Append search results to the HTML nodes
+            //Appending elements
             p.appendChild(a);
-            // p.appendChild(img);
             p.appendChild(span);
-
             document.body.appendChild(p);
-
-
-
-
-
         }
-
 
         if(page < 8) {
             s.gotoPage(page);
@@ -76,20 +62,12 @@ function searchComplete() {
         }
     }
 }
-
-
-
 </script>
-
-<!-- //window.location.href = "http://appendedurl";
-// $(location).attr("href",url); -->
-
-
-
 </head>
-<body style="font-family: Arial;border: 0 none;">
-<div class="mydiv"  style="float: left;"></div><br />
 
+<body style="font-family: Arial;border: 0 none;">
+
+    <div class="mydiv"  style="float: left;"></div><br />
 
 </body>
 </html>
