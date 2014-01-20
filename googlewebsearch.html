@@ -25,14 +25,17 @@ google.setOnLoadCallback(function() {
     s.setResultSetSize(google.search.Search.LARGE_RESULTSET);
     s.setSearchCompleteCallback(this, searchComplete, null);
     s.setNoHtmlGeneration();
+
+    //Change search query here
     s.execute("San Jose");
 });
 
 function searchComplete() {
-    
+
     if(s.results && s.results.length > 0) {
         var results = s.results;
          
+        //Loops through each object received   
         for(var i = 0; i < results.length; i++) {
             var result = results[i];
 
